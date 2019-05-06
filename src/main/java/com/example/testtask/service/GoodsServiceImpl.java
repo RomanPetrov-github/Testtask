@@ -1,11 +1,11 @@
 package com.example.testtask.service;
 
 import com.example.testtask.dao.GoodsRepository;
-import com.example.testtask.dao.OrderRepository;
 import com.example.testtask.entity.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,27 +19,34 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public void addGoods() {
-
+    public void addGoods(Goods goods) {
+        goodsRepository.save(goods);
     }
 
     @Override
-    public void updateGoods() {
-
+    public void updateGoods(Goods goods) {
+        if (goodsRepository.existsById(goods.getId())) {
+            goodsRepository.deleteById(goods.getId());
+        }
+        addGoods(goods);
     }
 
     @Override
-    public void deleteGoods() {
-
+    public void deleteGoods(Goods goods) {
+        goodsRepository.delete(goods);
     }
 
     @Override
     public List<Goods> getAllGoods() {
-        return null;
+        List<Goods> result = new ArrayList<>();
+        for (Goods goods: goodsRepository.findAll()){
+            result.add(goods);
+        }
+        return result;
     }
 
     @Override
     public Goods getGoods(int id) {
-        return null;
+        return goodsRepository.findById(id).get();
     }
 }

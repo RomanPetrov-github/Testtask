@@ -5,9 +5,9 @@ import com.example.testtask.entity.Order;
 import java.util.List;
 
 public interface OrderService {
-    public void addOrder();
-    public void updateOrder();
-    public void deleteOrder();
+    public void addOrder(Order order);
+    public void updateOrder(Order order);
+    public void deleteOrder(Order order);
     public List<Order> getAllOrder();
     public Order getOrder(int id);
 }
